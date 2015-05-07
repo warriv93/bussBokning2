@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:text="Ankomst"
         android:layout_marginLeft="50dp"
-        android:id="@+id/txtAnkomst"
+        android:id="@+id/txtAnkomst2"
         android:layout_alignBottom="@+id/txtDag"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -62,13 +62,13 @@
         android:layout_height="wrap_content"
         android:text="Avgång"
         android:id="@+id/txtAvgang"
-        android:layout_alignBottom="@+id/txtAnkomst"
+        android:layout_alignBottom="@+id/txtAnkomst2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/txtAnkomst"
-        android:layout_toEndOf="@+id/txtAnkomst"
+        android:layout_toRightOf="@+id/txtAnkomst2"
+        android:layout_toEndOf="@+id/txtAnkomst2"
         android:layout_below="@+id/txtFran"
         android:gravity="center"/>
 
 
-</RelativeLayout><!-- From: file:/G:/MEGA/MAH/Datavetenskap1/AndroidStudioProjects/DbProjectv3/app/src/main/res/layout/row_visabokningar.xml -->
+</RelativeLayout><!-- From: file:/Users/Ussi/Desktop/DbProjectv3/app/src/main/res/layout/row_visabokningar.xml -->

@@ -53,7 +53,7 @@ public class VisaMinaBokningarFrag extends Fragment {
         });
 
         resenar = ((MainActivity)getActivity()).getResenar();
-        tv_user.setText("Namn: "+resenar[0] +", Pnr: " + resenar[1]);
+//        tv_user.setText("Namn: "+resenar[0] +", Pnr: " + resenar[1]);
 
         resList = (ListView) view.findViewById(R.id.resList3);
         Button btUpdateList = (Button) view.findViewById(R.id.btUpdateList3);

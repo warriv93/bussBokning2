@@ -23,7 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -55,8 +54,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     private database db;
 
     private Dialog reg;
-
-
 
 
     @Override
@@ -100,30 +97,33 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                             .setTabListener(this));
         }
     }
+
     private void startstuff() {
         db = new database(this);
         sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
         if(sharedpreferences.contains("name")){
-
+            //Om hanb är inne ska något annat hända
         }else{
             startRegDialog();
         }
+        //Dummy tider somläggs in i databasen. Hårdkodat, fixa så de inte blir fel(Läggs in varje gång).
         addBussturer();
-
     }
 
-    /****** Function to set data in ArrayList *************/
+
+    /**
+     * Hämtar Destinationer med ID, från och till.
+     * @return en List med Resor-objekt
+     */
     public List<Resor> getResor(){
        List<Resor> resor = new ArrayList<Resor>();
         db.open();
         Cursor c = db.getTravel();
         if(c.moveToFirst()) {
             do {
-                Resor r = new Resor();
                 //adds the objects from the db to the Resor object
-                r.setTurID(c.getInt(0));
-                r.setFran(c.getString(1).toString());
-                r.setTill(c.getString(2).toString());
+                                    //Tid           Från            Till
+                Resor r = new Resor(c.getInt(0),c.getString(1),c.getString(2));
 
                 //adds every item to the ArrayList
                 resor.add(r);
@@ -134,6 +134,12 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         return resor;
     }
+
+    /**
+     * Får en lista med alla bokningar för en viss person
+     * @param PersonID  -   personr
+     * @return  Lista med Bokningsobjektet för just den personen.
+     */
     public List<Bokningar> getBokningar(int PersonID){
         List<Bokningar> bokningar = new ArrayList<>();
         db.open();
@@ -141,13 +147,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         Cursor c =  db.getBokningarEnkel(PersonID);
         if(c.moveToFirst()) {
             do {
-                Bokningar b = new Bokningar();
                 //adds the objects from the db to the Resor object
-                b.setTill(c.getString(0).toString());
-                b.setFran(c.getString(1).toString());
-                b.setAvgang(c.getString(2).toString());
-                b.setAnkomst(c.getString(3).toString());
-                b.setDag(c.getString(4).toString());
+                // Till Från    Avgång  Ankomst Dag
+                Bokningar b = new Bokningar(c.getString(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4));
+                Log.i("HOSSI","HOSSI " + c.getString(0)+" "+c.getString(1)+" "+c.getString(2)+" "+c.getString(3)+" "+c.getString(4));
                 //adds every item to the ArrayList
                 bokningar.add(b);
             } while (c.moveToNext());
@@ -157,18 +160,21 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         return bokningar;
     }
 
+    //Lägger till användare/resenär
     public void addResenar(String name, String address, int pnr, String country, int phone, String mail) {
         db.open();
         db.addResenar(name, address, pnr, country, phone, mail);
         db.close();
     }
+
+    //
     public void addReserverarB(int PersonID, int BussID) {
         db.open();
         db.addReserverarB(PersonID, BussID);
         db.close();
     }
 
-
+    //Hårdkodade turer
     public void addBussturer(){
         db.open();
         db.addBusstur( 1, 1,  100, "onsdag", 1050, 1430);
@@ -189,12 +195,13 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         db.addBusstur(6, 2, 800, "Lördag", 1000, 1900);
         db.addTravel(6, "Bryssel", "Blomstermåla");
 
-        db.addBusstur( 7, 1,  100, "onsdag", 2030, 2400);
+        db.addBusstur(7, 1, 100, "onsdag", 2030, 2400);
         db.addTravel(7, "Stockholm", "Blomstermåla");
 
         db.close();
     }
 
+    //Hämta användare/resenär namn och personnr för att visa i appen.
     public String[] getResenar(){
         db.open();
         Cursor c =  db.getResenar();
@@ -211,11 +218,13 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         return resenar;
     }
 
+    //Hämtar informationom bussturer -
     public String[] getBussTurInfo(int TurID){
         db.open();
         Cursor c =  db.getBussturer(TurID);
         String[] bussTurInfo = new String[5];
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            // turid, bussid, pris, dag, avgånger, ankomster
             bussTurInfo[0] = c.getString(0);
             bussTurInfo[1] = c.getString(1);
             bussTurInfo[2] = c.getString(2);
@@ -227,7 +236,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         return bussTurInfo;
     }
 
-    public void startRegDialog (){
+    //INloggningsrutan
+    public void startRegDialog(){
         reg = new Dialog(this);
         reg.setTitle("Kund Registrering");
         reg.setCanceledOnTouchOutside(true);
@@ -264,7 +274,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                 String  mail = etMail.getText().toString();
 
                 //if name or Pnr fields are empty the user will be shown the RegDialog again
-                if(name.isEmpty() || address.isEmpty() || country.isEmpty() || mail.isEmpty() || etPnr.equals("") || etPhone.equals("") ) {
+                if(name.isEmpty() || address.isEmpty() || country.isEmpty() || mail.isEmpty() || etPnr.getText().toString().equals("") || etPhone.getText().toString().equals("") ) {
                     Toast.makeText(getApplication(), "You need to enter atleast a Name and Pnr.", Toast.LENGTH_LONG).show();
                     startRegDialog();
                 }else {
@@ -276,7 +286,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString("name", etName.getText().toString());
 
-                    editor.commit();
+                    editor.apply();
 
                     //saves the information given to the database
                     addResenar(name, address, pnr, country, phone, mail);
@@ -289,27 +299,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         reg.show();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {

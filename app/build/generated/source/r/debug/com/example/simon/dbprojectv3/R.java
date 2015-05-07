@@ -1384,7 +1384,7 @@ containing a value of this type.
         public static final int textRes4=0x7f090043;
         public static final int title=0x7f090027;
         public static final int tv_user=0x7f09004b;
-        public static final int txtAnkomst=0x7f090059;
+        public static final int txtAnkomst2=0x7f090059;
         public static final int txtAvgang=0x7f09005a;
         public static final int txtDag=0x7f090058;
         public static final int txtFran=0x7f09004f;

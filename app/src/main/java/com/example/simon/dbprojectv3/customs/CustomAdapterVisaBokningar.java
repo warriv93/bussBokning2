@@ -40,7 +40,7 @@ public class CustomAdapterVisaBokningar extends ArrayAdapter<Bokningar> {
         /********* Create a holder Class to contain inflated xml file elements *********/
         //tror inte detta behövs egentligen
         public static class ViewHolder{
-            public TextView txtDag;
+             public TextView txtDag;
             public TextView txtFran;
             public TextView txtTill;
             public TextView txtAnkomst;
@@ -64,7 +64,7 @@ public class CustomAdapterVisaBokningar extends ArrayAdapter<Bokningar> {
                 holder.txtDag = (TextView) vi.findViewById(R.id.txtID);
                 holder.txtFran = (TextView) vi.findViewById(R.id.txtFran);
                 holder.txtTill = (TextView) vi.findViewById(R.id.txtTill);
-                holder.txtAnkomst = (TextView) vi.findViewById(R.id.txtAnkomst);
+//                holder.txtAnkomst = (TextView) vi.findViewById(R.id.txtAnkomst2);
                 holder.txtAvgang = (TextView) vi.findViewById(R.id.txtAvgang);
 
                 /************  Set holder with LayoutInflater ************/
@@ -77,12 +77,19 @@ public class CustomAdapterVisaBokningar extends ArrayAdapter<Bokningar> {
                 holder.txtFran.setText("No Data");
             }else{
                 /************  Set the values in Holder elements ***********/
-                holder.txtDag.setText("Dag: "+list.get(position).getDag());
-                holder.txtFran.setText("Från: "+list.get(position).getFran().toString());
-                holder.txtTill.setText("Till: "+list.get(position).getTill().toString());
-                holder.txtAnkomst.setText("Ankomst: "+list.get(position).getAnkomst().toString());
-                holder.txtAvgang.setText("Avgang: "+list.get(position).getAvgang().toString());
+                String dag = list.get(position).getDag();
+                String fran = list.get(position).getFran();
+                String till = list.get(position).getTill();
+//                String ankomst = list.get(position).getAnkomst().toString();
+                String avgang = list.get(position).getAvgang();
 
+//                if (dag!=null||fran!=null||till!=null||ankomst!=null||avgang!=null){
+                    holder.txtDag.setText("Dag: " + dag);
+                    holder.txtFran.setText("Från: " + fran);
+                    holder.txtTill.setText("Till: " + till);
+//                    holder.txtAnkomst.setText("Ankomst: " + ankomst);
+//                    holder.txtAvgang.setText("Avgang: " + avgang);
+//                }
 
 //            /******** Set Item Click Listener for LayoutInflater for each row *******/
 //            vi.setOnClickListener(new OnItemClickListener( position ));
