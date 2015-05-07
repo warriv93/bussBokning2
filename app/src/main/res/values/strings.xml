@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">DbProjectv3</string>
+
+
+    <string name="title_section1">Boka enkelresa</string>
+    <string name="title_section2">Boka paket</string>
+    <string name="title_section3">Visa mina bokningar</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+</resources>

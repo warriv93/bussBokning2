@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtDag"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:paddingRight="10dp"
+        android:text="ID"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/txtFran"
+        android:layout_width="160dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="50dp"
+        android:text="From"
+        android:layout_row="0"
+        android:layout_column="22"
+        android:layout_columnSpan="2"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/txtID"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/txtTill"
+        android:layout_width="43dp"
+        android:gravity="center"
+        android:layout_height="25dp"
+        android:paddingRight="5dp"
+        android:layout_row="0"
+        android:layout_column="24"
+        android:text="To"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/txtFran"
+        android:layout_toEndOf="@+id/txtFran"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ankomst"
+        android:layout_marginLeft="50dp"
+        android:id="@+id/txtAnkomst"
+        android:layout_alignBottom="@+id/txtDag"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/txtTill"
+        android:layout_toStartOf="@+id/txtTill"
+        android:layout_below="@+id/txtFran"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avgång"
+        android:id="@+id/txtAvgang"
+        android:layout_alignBottom="@+id/txtAnkomst"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/txtAnkomst"
+        android:layout_toEndOf="@+id/txtAnkomst"
+        android:layout_below="@+id/txtFran"
+        android:gravity="center"/>
+
+
+</RelativeLayout>
